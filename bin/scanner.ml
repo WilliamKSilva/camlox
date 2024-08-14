@@ -100,6 +100,12 @@ let rec scan_tokens state source tokens =
         else
           let tokens = add_token state None Token.SLASH in
           (state, tokens)
+    | ' ' -> (state, tokens)
+    | '\r' -> (state, tokens)
+    | '\t' -> (state, tokens)
+    | '\n' ->
+        let state = { state with line = state.line + 1 } in
+        (state, tokens)
     | _ ->
         Errors.error state.line "Unexpected Char.";
         (state, tokens)
