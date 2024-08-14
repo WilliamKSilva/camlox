@@ -12,7 +12,9 @@ let run_prompt =
 
   try 
     loop () 
-  with End_of_file -> ()
+  with 
+    | End_of_file -> ()
+    | Errors.Syntax_error -> loop ()
 
 let run_file path =
   let chan = open_in path in
@@ -32,6 +34,8 @@ let run_file path =
 let () = 
   let files = Sys.argv in
   if Array.length files == 1 then 
-    run_file (Array.get files 1)
+    try
+      run_file (Array.get files 1)
+    with Errors.Syntax_error -> exit 65
   else
     run_prompt
