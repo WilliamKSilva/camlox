@@ -1,18 +1,23 @@
 type state = {
   start : int; (* Points to the first character in the lexeme being scanned *)
   current : int;
-      (* Points at the current character being considered in the lexeme being scanned *)
+      (* Points at the current character being in the lexeme being scanned *)
   line : int; (* Tracks what source line "current" is on*)
 }
 
-let is_at_end current source = current >= String.length source
 let update_state_start state start = { state with start }
-
-let advance state source =
-  let state = { state with current = state.current + 1 } in
-  (state, source.[state.current - 1])
+let update_state_current state current = { state with current }
 
 let rec scan_tokens state source tokens =
+  let is_at_end current = current >= String.length source in
+  let advance state =
+    (*
+       "advance" consumes the current char, so we return its value and points
+       our state to the next char that will be consumed in the next iteration
+    *)
+    let state = { state with current = state.current + 1 } in
+    (state, source.[state.current - 1])
+  in
   let add_token state literal token_type =
     let text = String.sub source state.start state.current in
     let token : Token.token =
@@ -21,7 +26,20 @@ let rec scan_tokens state source tokens =
     List.append tokens [ token ]
   in
   let scan_token state =
-    let state, c = advance state source in
+    let match_char expected =
+      (*
+        "match_char" checks if the current char it is what we are expecting.
+        If it is we consume it, it is used to check if we have a double character
+        lexeme, like != or >=
+      *)
+      if is_at_end state.current then (state, false)
+      else if String.get source state.current != expected then (state, false)
+      else
+        let state = update_state_current state (state.current + 1) in
+        (state, true)
+    in
+
+    let state, c = advance state in
     match c with
     | '(' -> (state, add_token state None Token.LEFT_PAREN)
     | ')' -> (state, add_token state None Token.RIGHT_PAREN)
@@ -33,12 +51,40 @@ let rec scan_tokens state source tokens =
     | '+' -> (state, add_token state None Token.PLUS)
     | ';' -> (state, add_token state None Token.SEMICOLON)
     | '*' -> (state, add_token state None Token.STAR)
+    | '!' ->
+        let state, matched = match_char '=' in
+        let tokens =
+          if matched then add_token state None Token.BANG_EQUAL
+          else add_token state None Token.BANG
+        in
+        (state, tokens)
+    | '=' ->
+        let state, matched = match_char '=' in
+        let tokens =
+          if matched then add_token state None Token.EQUAL_EQUAL
+          else add_token state None Token.EQUAL
+        in
+        (state, tokens)
+    | '<' ->
+        let state, matched = match_char '=' in
+        let tokens =
+          if matched then add_token state None Token.LESS_EQUAL
+          else add_token state None Token.LESS
+        in
+        (state, tokens)
+    | '>' ->
+        let state, matched = match_char '=' in
+        let tokens =
+          if matched then add_token state None Token.GREATER_EQUAL
+          else add_token state None Token.GREATER
+        in
+        (state, tokens)
     | _ ->
         Errors.error state.line "Unexpected Char.";
         (state, tokens)
   in
 
-  if is_at_end state.current source then
+  if is_at_end state.current then
     let token : Token.token =
       { token_type = Token.EOF; lexeme = ""; literal = None; line = state.line }
     in
