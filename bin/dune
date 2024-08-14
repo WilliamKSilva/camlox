@@ -1,4 +1,4 @@
 (executable
  (public_name camlox)
- (name main)
+ (name lox)
  (libraries camlox))

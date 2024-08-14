@@ -13,10 +13,114 @@
 #  ; build_dir = In_build_dir "default"
 #  ; instrument_with = []
 #  }
-$ /home/william/.opam/default/bin/ocamlc.opt -config > /tmp/dune_befc44_output
-$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.main.eobjs/byte -I bin/.main.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.main.eobjs/native/dune__exe__Main.cmx -c -impl bin/main.ml)
-$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -o bin/main.exe lib/camlox.cmxa bin/.main.eobjs/native/dune__exe__Main.cmx)
-$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.main.eobjs/byte -I bin/.main.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.main.eobjs/native/dune__exe__Main.cmx -c -impl bin/main.ml)
-$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -o bin/main.exe lib/camlox.cmxa bin/.main.eobjs/native/dune__exe__Main.cmx)
-$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.main.eobjs/byte -I bin/.main.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.main.eobjs/native/dune__exe__Main.cmx -c -impl bin/main.ml)
-$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -o bin/main.exe lib/camlox.cmxa bin/.main.eobjs/native/dune__exe__Main.cmx)
+$ /home/william/.opam/default/bin/ocamlc.opt -config > /tmp/dune_cb4cf3_output
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlc.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -bin-annot -bin-annot-occurrences -I bin/.lox.eobjs/byte -I lib/.camlox.objs/byte -no-alias-deps -opaque -o bin/.lox.eobjs/byte/dune__exe__Lox.cmi -c -intf bin/lox.mli)
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.lox.eobjs/byte -I bin/.lox.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.lox.eobjs/native/dune__exe__Lox.cmx -c -impl bin/lox.ml)
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -o bin/lox.exe lib/camlox.cmxa bin/.lox.eobjs/native/dune__exe__Lox.cmx)
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.lox.eobjs/byte -I bin/.lox.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.lox.eobjs/native/dune__exe__Lox.cmx -c -impl bin/lox.ml)
+> File "bin/lox.ml", line 4, characters 36-36:
+> Error: Syntax error
+[2]
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.lox.eobjs/byte -I bin/.lox.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.lox.eobjs/native/dune__exe__Lox.cmx -c -impl bin/lox.ml)
+> File "bin/lox.ml", line 4, characters 36-36:
+> Error: Syntax error
+[2]
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.lox.eobjs/byte -I bin/.lox.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.lox.eobjs/native/dune__exe__Lox.cmx -c -impl bin/lox.ml)
+> File "bin/lox.ml", line 7, characters 36-36:
+> Error: Syntax error
+[2]
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.lox.eobjs/byte -I bin/.lox.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.lox.eobjs/native/dune__exe__Lox.cmx -c -impl bin/lox.ml)
+> File "bin/lox.ml", line 9, characters 36-36:
+> Error: Syntax error
+[2]
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.lox.eobjs/byte -I bin/.lox.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.lox.eobjs/native/dune__exe__Lox.cmx -c -impl bin/lox.ml)
+> File "bin/lox.ml", line 11, characters 36-36:
+> Error: Syntax error
+[2]
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.lox.eobjs/byte -I bin/.lox.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.lox.eobjs/native/dune__exe__Lox.cmx -c -impl bin/lox.ml)
+> File "bin/lox.ml", line 11, characters 36-36:
+> Error: Syntax error
+[2]
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.lox.eobjs/byte -I bin/.lox.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.lox.eobjs/native/dune__exe__Lox.cmx -c -impl bin/lox.ml)
+> File "bin/lox.ml", line 12, characters 36-36:
+> Error: Syntax error
+[2]
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.lox.eobjs/byte -I bin/.lox.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.lox.eobjs/native/dune__exe__Lox.cmx -c -impl bin/lox.ml)
+> File "bin/lox.ml", line 12, characters 36-36:
+> Error: Syntax error
+[2]
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.lox.eobjs/byte -I bin/.lox.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.lox.eobjs/native/dune__exe__Lox.cmx -c -impl bin/lox.ml)
+> File "bin/lox.ml", line 14, characters 0-3:
+> 14 | let () = print_endline "Hello, lox!"
+>      ^^^
+> Error: Syntax error
+[2]
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.lox.eobjs/byte -I bin/.lox.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.lox.eobjs/native/dune__exe__Lox.cmx -c -impl bin/lox.ml)
+> File "bin/lox.ml", line 13, characters 36-36:
+> Error: Syntax error
+[2]
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.lox.eobjs/byte -I bin/.lox.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.lox.eobjs/native/dune__exe__Lox.cmx -c -impl bin/lox.ml)
+> File "bin/lox.ml", line 17, characters 36-36:
+> Error: Syntax error
+[2]
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.lox.eobjs/byte -I bin/.lox.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.lox.eobjs/native/dune__exe__Lox.cmx -c -impl bin/lox.ml)
+> File "bin/lox.ml", line 18, characters 36-36:
+> Error: Syntax error
+[2]
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.lox.eobjs/byte -I bin/.lox.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.lox.eobjs/native/dune__exe__Lox.cmx -c -impl bin/lox.ml)
+> File "bin/lox.ml", line 18, characters 36-36:
+> Error: Syntax error
+[2]
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.lox.eobjs/byte -I bin/.lox.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.lox.eobjs/native/dune__exe__Lox.cmx -c -impl bin/lox.ml)
+> File "bin/lox.ml", line 18, characters 36-36:
+> Error: Syntax error
+[2]
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.lox.eobjs/byte -I bin/.lox.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.lox.eobjs/native/dune__exe__Lox.cmx -c -impl bin/lox.ml)
+> File "bin/lox.ml", line 4, characters 4-12:
+> 4 | let run_file path =
+>         ^^^^^^^^
+> Error (warning 32 [unused-value-declaration]): unused value run_file.
+[2]
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.lox.eobjs/byte -I bin/.lox.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.lox.eobjs/native/dune__exe__Lox.cmx -c -impl bin/lox.ml)
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -o bin/lox.exe lib/camlox.cmxa bin/.lox.eobjs/native/dune__exe__Lox.cmx)
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.lox.eobjs/byte -I bin/.lox.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.lox.eobjs/native/dune__exe__Lox.cmx -c -impl bin/lox.ml)
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -o bin/lox.exe lib/camlox.cmxa bin/.lox.eobjs/native/dune__exe__Lox.cmx)
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.lox.eobjs/byte -I bin/.lox.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.lox.eobjs/native/dune__exe__Lox.cmx -c -impl bin/lox.ml)
+> File "bin/lox.ml", line 26, characters 6-6:
+> Error: Syntax error
+[2]
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.lox.eobjs/byte -I bin/.lox.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.lox.eobjs/native/dune__exe__Lox.cmx -c -impl bin/lox.ml)
+> File "bin/lox.ml", line 25, characters 13-18:
+> 25 |     run_file files.[0] 
+>                   ^^^^^
+> Error: This expression has type string array
+>        but an expression was expected of type string
+[2]
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.lox.eobjs/byte -I bin/.lox.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.lox.eobjs/native/dune__exe__Lox.cmx -c -impl bin/lox.ml)
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -o bin/lox.exe lib/camlox.cmxa bin/.lox.eobjs/native/dune__exe__Lox.cmx)
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.lox.eobjs/byte -I bin/.lox.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.lox.eobjs/native/dune__exe__Lox.cmx -c -impl bin/lox.ml)
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -o bin/lox.exe lib/camlox.cmxa bin/.lox.eobjs/native/dune__exe__Lox.cmx)
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.lox.eobjs/byte -I bin/.lox.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.lox.eobjs/native/dune__exe__Lox.cmx -c -impl bin/lox.ml)
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -o bin/lox.exe lib/camlox.cmxa bin/.lox.eobjs/native/dune__exe__Lox.cmx)
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.lox.eobjs/byte -I bin/.lox.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.lox.eobjs/native/dune__exe__Lox.cmx -c -impl bin/lox.ml)
+> File "bin/lox.ml", line 12, characters 0-3:
+> 12 | let run_file path =
+>      ^^^
+> Error: Syntax error
+[2]
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.lox.eobjs/byte -I bin/.lox.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.lox.eobjs/native/dune__exe__Lox.cmx -c -impl bin/lox.ml)
+> File "bin/lox.ml", line 27, characters 0-3:
+> 27 | let () = 
+>      ^^^
+> Error: Syntax error
+[2]
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.lox.eobjs/byte -I bin/.lox.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.lox.eobjs/native/dune__exe__Lox.cmx -c -impl bin/lox.ml)
+> File "bin/lox.ml", line 28, characters 0-3:
+> 28 | let () = 
+>      ^^^
+> Error: Syntax error
+[2]
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.lox.eobjs/byte -I bin/.lox.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.lox.eobjs/native/dune__exe__Lox.cmx -c -impl bin/lox.ml)
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -o bin/lox.exe lib/camlox.cmxa bin/.lox.eobjs/native/dune__exe__Lox.cmx)
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I bin/.lox.eobjs/byte -I bin/.lox.eobjs/native -I lib/.camlox.objs/byte -I lib/.camlox.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.lox.eobjs/native/dune__exe__Lox.cmx -c -impl bin/lox.ml)
+$ (cd _build/default && /home/william/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -o bin/lox.exe lib/camlox.cmxa bin/.lox.eobjs/native/dune__exe__Lox.cmx)
