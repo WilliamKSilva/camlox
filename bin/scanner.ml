@@ -1,7 +1,7 @@
 type state = {
   start : int; (* Points to the first character in the lexeme being scanned *)
   current : int;
-      (* Points at the current character being in the lexeme being scanned *)
+      (* Points at the current character in the lexeme being scanned *)
   line : int; (* Tracks what source line "current" is on*)
 }
 
@@ -37,6 +37,11 @@ let rec scan_tokens state source tokens =
       else
         let state = update_state_current state (state.current + 1) in
         (state, true)
+    in
+
+    let peek state =
+      if is_at_end state.current then Char.chr 0 (* \0 *)
+      else String.get source state.current
     in
 
     let state, c = advance state in
@@ -79,6 +84,22 @@ let rec scan_tokens state source tokens =
           else add_token state None Token.GREATER
         in
         (state, tokens)
+    | '/' ->
+        (* This loop will consume characters until end of the line is found *)
+        let rec loop state =
+          if is_at_end state.current == false && peek state != '\n' then
+            let state, _ = advance state in
+            loop state
+          else state
+        in
+
+        let state, matched = match_char '/' in
+        if matched then
+          let state = loop state in
+          (state, tokens)
+        else
+          let tokens = add_token state None Token.SLASH in
+          (state, tokens)
     | _ ->
         Errors.error state.line "Unexpected Char.";
         (state, tokens)
