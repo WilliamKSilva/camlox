@@ -5,11 +5,12 @@ let run_prompt =
 
   let rec loop () =
     let line = read_line () in
-    run line;
+    let has_error = false in
+    if has_error then loop () else run line;
     loop ()
   in
 
-  try loop () with End_of_file -> () | Errors.Syntax_error -> loop ()
+  try loop () with End_of_file -> ()
 
 let run_file path =
   let chan = open_in path in
@@ -22,10 +23,11 @@ let run_file path =
     in
     try loop () with End_of_file -> Buffer.contents buf
   in
-  run read_chan
+  let has_error = false in
+  if has_error then raise Exit else run read_chan
 
 let () =
   let files = Sys.argv in
   if Array.length files == 1 then
-    try run_file (Array.get files 1) with Errors.Syntax_error -> exit 65
+    try run_file (Array.get files 1) with Exit -> exit 65
   else run_prompt

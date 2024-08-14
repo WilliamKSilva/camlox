@@ -33,7 +33,9 @@ let rec scan_tokens state source tokens =
     | '+' -> (state, add_token state None Token.PLUS)
     | ';' -> (state, add_token state None Token.SEMICOLON)
     | '*' -> (state, add_token state None Token.STAR)
-    | _ -> (state, tokens)
+    | _ ->
+        Errors.error state.line "Unexpected Char.";
+        (state, tokens)
   in
 
   if is_at_end state.current source then
@@ -43,5 +45,14 @@ let rec scan_tokens state source tokens =
     List.append tokens [ token ]
   else
     let state = update_state_start state state.current in
-    let state, tokens = scan_token state in
-    scan_tokens state source tokens
+    try
+      let state, tokens = scan_token state in
+      scan_tokens state source tokens
+    with Errors.Syntax_error ->
+      (*
+         If a syntax error is encoutered we keep scanning, but in the future we
+         may want to implement additional stuff. So we still track the Exception 
+         when calling scan_token
+      *)
+      let state, tokens = scan_token state in
+      scan_tokens state source tokens
