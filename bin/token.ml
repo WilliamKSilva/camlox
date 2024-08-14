@@ -46,6 +46,7 @@ type literal =
   | IntLiteral of int
   | StrLiteral of string
   | FloatLiteral of float
+  | None
 
 type token = {
   token_type : token_type;
