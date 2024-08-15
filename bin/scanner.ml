@@ -23,13 +23,6 @@ let rec scan_tokens state source tokens =
       let state = { state with current = state.current + 1 } in
       (state, source.[state.current - 1])
     in
-    let add_token state literal token_type =
-      let text = String.sub source state.start state.current in
-      let token : Token.token =
-        { token_type; line = state.line; literal; lexeme = text }
-      in
-      List.append tokens [ token ]
-    in
     let match_char expected =
       (*
         "match_char" checks if the current char it is what we are expecting.
@@ -42,11 +35,24 @@ let rec scan_tokens state source tokens =
         let state = update_state_current state (state.current + 1) in
         (state, true)
     in
-
     let peek state =
       (* Peek look at the current char without consuming it *)
       if is_at_end state.current then Char.chr 0 (* \0 *)
       else String.get source state.current
+    in
+
+    let peek_next state =
+      if state.current + 1 >= String.length source then (* \0 *)
+        Char.chr 0
+      else source.[state.current + 1]
+    in
+
+    let add_token state literal token_type =
+      let text = String.sub source state.start state.current in
+      let token : Token.token =
+        { token_type; line = state.line; literal; lexeme = text }
+      in
+      List.append tokens [ token ]
     in
 
     let state, c = advance state in
@@ -145,12 +151,38 @@ let rec scan_tokens state source tokens =
           let value = String.sub source (state.start + 1) (state.current - 2) in
           let tokens = add_token state (StrLiteral value) STRING in
           Ok (state, tokens)
-    | _ ->
-        Error
-          {
-            message = Errors.error state.line "" "Unexpected char.";
-            data = (state, tokens);
-          }
+    | c ->
+        let is_digit c = c >= '0' && c <= '9' in
+        (* Number literals *)
+        if is_digit c then
+          let rec loop_number c state =
+            if is_digit c then
+              let state, _ = advance state in
+              let peek = peek state in
+              loop_number peek state
+            else state
+          in
+          let state = loop_number c state in
+          (* Look for a fractional part *)
+          if peek state == '.' && is_digit (peek_next state) then
+            (* Consume the "." *)
+            let state, _ = advance state in
+            let state = loop_number c state in
+            let value =
+              Float.of_string
+                (String.sub source state.start (state.current - 1))
+            in
+            let tokens = add_token state (NumLiteral value) Token.NUMBER in
+            Ok (state, tokens)
+          else
+            let tokens = add_token state None Token.NUMBER in
+            Ok (state, tokens)
+        else
+          Error
+            {
+              message = Errors.error state.line "" "Unexpected char.";
+              data = (state, tokens);
+            }
   in
 
   if is_at_end state.current then

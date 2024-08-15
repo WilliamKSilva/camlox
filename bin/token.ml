@@ -42,11 +42,7 @@ type token_type =
   | WHILE
   | EOF
 
-type literal =
-  | IntLiteral of int
-  | StrLiteral of string
-  | FloatLiteral of float
-  | None
+type literal = StrLiteral of string | NumLiteral of float | None
 
 type token = {
   token_type : token_type;
