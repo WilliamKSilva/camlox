@@ -1,3 +1,6 @@
+open Token
+open Errors
+
 type state = {
   start : int; (* Points to the first character in the lexeme being scanned *)
   current : int;
@@ -37,7 +40,7 @@ let rec scan_tokens state source tokens (identifiers : Token.identifiers) =
     in
     let peek state =
       (* Peek look at the current char without consuming it *)
-      if is_at_end state.current then Char.chr 0 (* \0 *)
+      if is_at_end state.current then '\000' (* \0 *)
       else String.get source state.current
     in
 
@@ -49,7 +52,7 @@ let rec scan_tokens state source tokens (identifiers : Token.identifiers) =
 
     let add_token state literal token_type =
       (* TODO: check if this substring is right *)
-      let text = String.sub source state.start (state.current - 1) in
+      let text = String.sub source state.start state.current in
       let token : Token.token =
         { token_type; line = state.line; literal; lexeme = text }
       in
@@ -138,18 +141,12 @@ let rec scan_tokens state source tokens (identifiers : Token.identifiers) =
         if is_at_end state.current then
           Error
             {
-              message = Errors.error state.line "" "Undetermined string.";
+              message = error state.line "" "Undetermined string.";
               data = (state, tokens);
             }
         else
           let state, _ = advance state in
-          (*
-             The second argument of String.sub is the length of the substring,
-             so current - 1 would be the '"' string closing,
-             and current - 2 it is the actual size of the string starting from the
-             index at start + 1 after the opening '"'
-          *)
-          let value = String.sub source (state.start + 1) (state.current - 2) in
+          let value = String.sub source (state.start + 1) (state.current - 1) in
           let tokens = add_token state (StrLiteral value) STRING in
           Ok (state, tokens)
     | c ->
@@ -185,6 +182,7 @@ let rec scan_tokens state source tokens (identifiers : Token.identifiers) =
             Ok (state, tokens)
         else if is_alpha c then
           (* Reserved words and Identifiers *)
+          (* var *)
           let rec identifier state =
             let c = peek state in
             if is_alpha_numeric c then
@@ -192,9 +190,8 @@ let rec scan_tokens state source tokens (identifiers : Token.identifiers) =
               identifier state
             else state
           in
-
           let state = identifier state in
-          let text = String.sub source state.start (state.current - 1) in
+          let text = String.sub source state.start state.current in
           let token_type =
             try
               let token_type = Hashtbl.find identifiers text in
@@ -217,7 +214,7 @@ let rec scan_tokens state source tokens (identifiers : Token.identifiers) =
         else
           Error
             {
-              message = Errors.error state.line "" "Unexpected char.";
+              message = error state.line "" "Unexpected char.";
               data = (state, tokens);
             }
   in
@@ -231,7 +228,7 @@ let rec scan_tokens state source tokens (identifiers : Token.identifiers) =
     let state = update_state_start state state.current in
     let res = scan_token state in
     match res with
-    | Ok (_, tokens) -> tokens
+    | Ok (state, tokens) -> scan_tokens state source tokens identifiers
     | Error e ->
         print_endline e.message;
         let _, tokens = e.data in

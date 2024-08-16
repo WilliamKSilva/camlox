@@ -1,12 +1,27 @@
-let run source = print_endline source
+module Token = Camlox.Token
+module Scanner = Camlox.Scanner
+
+let run source =
+  let identifiers = Token.get_identifiers in
+  let state : Scanner.state = { current = 0; start = 0; line = 1 } in
+  let tokens = Scanner.scan_tokens state source [] identifiers in
+  let _ = List.length tokens in
+  match tokens with
+  | [] -> ()
+  | hd :: _ -> (
+      if hd.token_type == Token.VAR then print_endline "var"
+      else
+        match hd.literal with
+        | Token.StrLiteral s -> print_endline s
+        | Token.NumLiteral n -> print_endline (string_of_float n)
+        | _ -> print_endline "Error")
 
 let run_prompt =
   print_endline "> ";
 
   let rec loop () =
     let line = read_line () in
-    let has_error = false in
-    if has_error then loop () else run line;
+    run line;
     loop ()
   in
 
