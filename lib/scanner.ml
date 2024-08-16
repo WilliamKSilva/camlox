@@ -12,9 +12,6 @@ type scanner_data = state * Token.token list
 type scanner_error = { message : string; data : scanner_data }
 type scanner_response = (scanner_data, scanner_error) result
 
-let update_state_start state start = { state with start }
-let update_state_current state current = { state with current }
-
 let rec scan_tokens state source tokens (identifiers : Token.identifiers) =
   let is_at_end current = current >= String.length source in
   let scan_token state =
@@ -233,7 +230,7 @@ let rec scan_tokens state source tokens (identifiers : Token.identifiers) =
     in
     List.append tokens [ token ]
   else
-    let state = update_state_start state state.current in
+    let state = { state with start = state.current } in
     let res = scan_token state in
     match res with
     | Ok (state, tokens) -> scan_tokens state source tokens identifiers
