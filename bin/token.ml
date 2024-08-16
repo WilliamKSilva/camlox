@@ -50,3 +50,5 @@ type token = {
   literal : literal;
   line : int;
 }
+
+type identifiers = (string, token_type) Hashtbl.t

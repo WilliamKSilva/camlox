@@ -12,7 +12,7 @@ type scanner_response = (scanner_data, scanner_error) result
 let update_state_start state start = { state with start }
 let update_state_current state current = { state with current }
 
-let rec scan_tokens state source tokens =
+let rec scan_tokens state source tokens (identifiers : Token.identifiers) =
   let is_at_end current = current >= String.length source in
   let scan_token state =
     let advance state =
@@ -48,7 +48,8 @@ let rec scan_tokens state source tokens =
     in
 
     let add_token state literal token_type =
-      let text = String.sub source state.start state.current in
+      (* TODO: check if this substring is right *)
+      let text = String.sub source state.start (state.current - 1) in
       let token : Token.token =
         { token_type; line = state.line; literal; lexeme = text }
       in
@@ -153,6 +154,11 @@ let rec scan_tokens state source tokens =
           Ok (state, tokens)
     | c ->
         let is_digit c = c >= '0' && c <= '9' in
+        let is_alpha c =
+          (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_'
+        in
+        let is_alpha_numeric c = is_digit c || is_alpha c in
+
         (* Number literals *)
         if is_digit c then
           let rec loop_number c state =
@@ -177,6 +183,37 @@ let rec scan_tokens state source tokens =
           else
             let tokens = add_token state None Token.NUMBER in
             Ok (state, tokens)
+        else if is_alpha c then
+          (* Reserved words and Identifiers *)
+          let rec identifier state =
+            let c = peek state in
+            if is_alpha_numeric c then
+              let state, _ = advance state in
+              identifier state
+            else state
+          in
+
+          let state = identifier state in
+          let text = String.sub source state.start (state.current - 1) in
+          let token_type =
+            try
+              let token_type = Hashtbl.find identifiers text in
+              Some token_type
+            with Not_found -> None
+          in
+
+          let tokens =
+            (*
+              If a reserved word was found on the token_type Hashtbl
+              we add it to "tokens" else the text we found it is a "identifier"
+              established by the user
+            *)
+            match token_type with
+            | Some t -> add_token state (StrLiteral text) t
+            | None -> add_token state (StrLiteral text) IDENTIFIER
+          in
+
+          Ok (state, tokens)
         else
           Error
             {
