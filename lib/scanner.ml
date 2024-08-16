@@ -26,7 +26,7 @@ let rec scan_tokens state source tokens (identifiers : Token.identifiers) =
       let state = { state with current = state.current + 1 } in
       (state, source.[state.current - 1])
     in
-    let match_char expected =
+    let match_char state expected =
       (*
         "match_char" checks if the current char it is what we are expecting.
         If it is we consume it, it is used to check if we have a double character
@@ -35,7 +35,7 @@ let rec scan_tokens state source tokens (identifiers : Token.identifiers) =
       if is_at_end state.current then (state, false)
       else if String.get source state.current != expected then (state, false)
       else
-        let state = update_state_current state (state.current + 1) in
+        let state, _ = advance state in
         (state, true)
     in
     let peek state =
@@ -53,6 +53,7 @@ let rec scan_tokens state source tokens (identifiers : Token.identifiers) =
     let add_token state literal token_type =
       (* TODO: check if this substring is right *)
       let text = String.sub source state.start state.current in
+
       let token : Token.token =
         { token_type; line = state.line; literal; lexeme = text }
       in
@@ -72,33 +73,40 @@ let rec scan_tokens state source tokens (identifiers : Token.identifiers) =
     | ';' -> Ok (state, add_token state None Token.SEMICOLON)
     | '*' -> Ok (state, add_token state None Token.STAR)
     | '!' ->
-        let state, matched = match_char '=' in
-        let tokens =
-          if matched then add_token state None Token.BANG_EQUAL
-          else add_token state None Token.BANG
-        in
-        Ok (state, tokens)
+        let state, matched = match_char state '=' in
+        if matched then
+          let tokens = add_token state None Token.BANG_EQUAL in
+          Ok (state, tokens)
+        else
+          let tokens = add_token state None Token.BANG in
+          Ok (state, tokens)
     | '=' ->
-        let state, matched = match_char '=' in
-        let tokens =
-          if matched then add_token state None Token.EQUAL_EQUAL
-          else add_token state None Token.EQUAL
-        in
-        Ok (state, tokens)
+        let state, matched = match_char state '=' in
+        if matched then
+          let tokens = add_token state None Token.EQUAL_EQUAL in
+          Ok (state, tokens)
+        else
+          let tokens = add_token state None Token.EQUAL in
+          let state, _ = advance state in
+          Ok (state, tokens)
     | '<' ->
-        let state, matched = match_char '=' in
-        let tokens =
-          if matched then add_token state None Token.LESS_EQUAL
-          else add_token state None Token.LESS
-        in
-        Ok (state, tokens)
+        let state, matched = match_char state '=' in
+        if matched then
+          let tokens = add_token state None Token.LESS_EQUAL in
+          Ok (state, tokens)
+        else
+          let tokens = add_token state None Token.LESS in
+          let state, _ = advance state in
+          Ok (state, tokens)
     | '>' ->
-        let state, matched = match_char '=' in
-        let tokens =
-          if matched then add_token state None Token.GREATER_EQUAL
-          else add_token state None Token.GREATER
-        in
-        Ok (state, tokens)
+        let state, matched = match_char state '=' in
+        if matched then
+          let tokens = add_token state None Token.GREATER_EQUAL in
+          Ok (state, tokens)
+        else
+          let tokens = add_token state None Token.GREATER in
+          let state, _ = advance state in
+          Ok (state, tokens)
     | '/' ->
         (* This loop will consume characters until end of the line is found *)
         let rec loop state =
@@ -108,7 +116,7 @@ let rec scan_tokens state source tokens (identifiers : Token.identifiers) =
           else state
         in
 
-        let state, matched = match_char '/' in
+        let state, matched = match_char state '/' in
         if matched then
           let state = loop state in
           Ok (state, tokens)

@@ -5,16 +5,9 @@ let run source =
   let identifiers = Token.get_identifiers in
   let state : Scanner.state = { current = 0; start = 0; line = 1 } in
   let tokens = Scanner.scan_tokens state source [] identifiers in
-  let _ = List.length tokens in
   match tokens with
-  | [] -> ()
-  | hd :: _ -> (
-      if hd.token_type == Token.VAR then print_endline "var"
-      else
-        match hd.literal with
-        | Token.StrLiteral s -> print_endline s
-        | Token.NumLiteral n -> print_endline (string_of_float n)
-        | _ -> print_endline "Error")
+  | [] -> print_endline "nada"
+  | hd :: _ -> print_endline hd.lexeme
 
 let run_prompt =
   print_endline "> ";
